@@ -1,10 +1,12 @@
+from leastsquares import leastsquares
+from Mutate import mutate
+from Breed import breed
 
-
-def evolve(population):
+def evolve(population, data):
     percentage_good = 0.25
     rand_select = 0.5
     mutate_chance = 0.5
-    graded = [(score(member), member) for member in population]
+    graded = [(leastsquares(member,data), member) for member in population]
 
     graded = [x[1] for x in sorted(graded, key=lambda x:x[0], reverse = False)]
 
