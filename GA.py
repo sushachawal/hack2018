@@ -5,9 +5,6 @@ import numpy as np
 max_power = 500
 min_power = 0
 
-def score(x):
-    return max(x)
-
 def create_population(size):
 
     pop = []
