@@ -1,10 +1,13 @@
-
+import simulation
+import random
+from Mutate import mutate
+from Breed import breed
 
 def evolve(population):
     percentage_good = 0.25
     rand_select = 0.5
     mutate_chance = 0.5
-    graded = [(score(member), member) for member in population]
+    graded = [(simulation.get_time(member), member) for member in population]
 
     graded = [x[1] for x in sorted(graded, key=lambda x:x[0], reverse = False)]
 
@@ -26,7 +29,7 @@ def evolve(population):
 
     # Now find out how many spots we have left to fill.
     parents_length = len(parents)
-    desired_length = len(pop) - parents_length
+    desired_length = len(population) - parents_length
     children = []
 
     # Add children, which are bred from two remaining networks.

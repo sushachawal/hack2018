@@ -1,3 +1,5 @@
+import random
+from GA import max_power
 def mutate(powers):
     """Randomly mutate one part of population.
     Args:
