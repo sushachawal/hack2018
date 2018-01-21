@@ -6,7 +6,7 @@ def mutate(powers):
 		powers: The power vector to mutate part of
 	"""
 	# Choose a random element
-	mutation_chance = 0.3
+	mutation_chance = 0.1
 	mutation = random.randrange(0,len(powers))
 
 	# Mutate one of the power elements.

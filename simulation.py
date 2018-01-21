@@ -15,7 +15,7 @@ wind = getWindInfo(latlng[0][0],latlng[0][1])
 section_dist = [1866.5, 3634.7, 5691.2, 7926.5, 9665.1, 11521.7, 14032.9]
 
 def get_time(section_power):
-	energy = 100000000
+	energy = 3000*1000
 	velocities = []
 	mass = 90
 	g = 9.81
@@ -35,14 +35,14 @@ def get_time(section_power):
 		deltaLng = latlng[i + 1][1] - latlng[i][1]
 		heading = math.atan2(deltaLat,deltaLng)
 		wind_v = -1 * wind["speed"] * math.cos(heading - windAngle) # 1 if full opposing motion, -1 if in same direction
-        
+
 		theta = math.atan(inclin[i]/100)
 		C = mass * g * math.sin(theta)
-		P = section_power[i]
-		# for j in range(0, len(section_dist)):
-			# if x[i] < section_dist[j]:
-				# P = section_power[j]
-				# break
+		#P = section_power[i]
+		for j in range(0, len(section_dist)):
+			if x[i] < section_dist[j]:
+				P = section_power[j]
+				break
 
 
 		coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
@@ -62,13 +62,13 @@ def get_time(section_power):
 			return time.real
 		if P == 0:
 			print velocities[i]
-		velocities.append(tempV)	
+		velocities.append(tempV)
 		distance = math.sqrt((x[i + 1] - x[i])**2 + (y[i + 1] - y[i])**2)
-			
+
 		delta_time = distance/velocities[i]
 		time += delta_time
 
-		
+
 		energy -= P * delta_time
 
 		if i == 0:
@@ -82,5 +82,5 @@ def get_time(section_power):
 
 		if energy < 0:
 			time += 100000000
-			return time.real		
-	return time.real  
+			return time.real
+	return time.real

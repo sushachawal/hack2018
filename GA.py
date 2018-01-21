@@ -10,11 +10,12 @@ def create_population(size):
 
 	pop = []
 	courseData = getCourseInfo()
-	length = len(courseData["x"])
+	#length = len(courseData["x"])
+	length = 7
 
 	for i in range(0, size):
 		powers = []
-		
+
 		for j in range(0,length):
 			powers.append(random.randint(min_power, max_power))
 
