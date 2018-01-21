@@ -4,8 +4,8 @@ from Mutate import mutate
 from Breed import breed
 
 def evolve(population):
-    percentage_good = 0.25
-    rand_select = 0.5
+    percentage_good = 0.1
+    rand_select = 0.2
     mutate_chance = 0.5
     graded = [(simulation.get_time(member), member) for member in population]
 

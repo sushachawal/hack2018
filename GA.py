@@ -1,20 +1,24 @@
 # import numpy as np
 import random
 import numpy as np
+from API_functions import getCourseInfo
 
-max_power = 500
-min_power = 0
+max_power = 800
+min_power = 1
 
 def create_population(size):
 
-    pop = []
+	pop = []
+	courseData = getCourseInfo()
+	length = len(courseData["x"])
 
-    for i in range(0, size):
-        powers = []
-        for j in range(0,7):
-            powers.append(random.randint(min_power, max_power))
+	for i in range(0, size):
+		powers = []
+		
+		for j in range(0,length):
+			powers.append(random.randint(min_power, max_power))
 
-        pop.append(powers)
+		pop.append(powers)
 
 
-    return pop
+	return pop
