@@ -7,7 +7,7 @@ def evolve(population):
     percentage_good = 0.1
     rand_select = 0.2
     mutate_chance = 0.5
-    graded = [(simulation.get_time(member), member) for member in population]
+    graded = [(simulation.get_time(member)["time"], member) for member in population]
 
     graded = [x[1] for x in sorted(graded, key=lambda x:x[0], reverse = False)]
 

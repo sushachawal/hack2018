@@ -83,4 +83,4 @@ def get_time(section_power):
 		if energy < 0:
 			time += 100000000
 			return time.real
-	return time.real
+	return {"time": time.real, "velocities": velocities}
