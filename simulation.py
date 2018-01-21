@@ -45,8 +45,8 @@ def get_time(section_power):
 				# break
 
 
-		#coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
-		coeff = [A,0,B+C,-P]
+		coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
+		#coeff = [A,0,B+C,-P]
 		v_array = np.roots(coeff)
 
 		tempV = 0;
