@@ -25,6 +25,3 @@ def getWindInfo(lat,lng):
 	URL = "http://api.openweathermap.org/data/2.5/weather?lat=" + str(lat) + "&lon="+ str(lng) + "&APPID=c5914720e06793445e324ce52bab4f8c"
 	data = requests.get(URL).json()
 	return data["wind"]
-
-
-
