@@ -29,12 +29,12 @@ def get_time(section_power):
 
 	D = 0.5 * mass
 	time = 0
-	windAngle = 270 - wind['deg'] #Basically converting meteorological angle to standard angle measurement system
+	windAngle = 270 - wind['deg'] #Converts meteorological angle to standard angle measurement system
 	for i in range(len(x)-1):
 		deltaLat = latlng[i + 1][0] - latlng[i][0]
 		deltaLng = latlng[i + 1][1] - latlng[i][1]
 		heading = math.atan2(deltaLat,deltaLng)
-		wind_v = -1 * wind["speed"] * math.cos(heading - windAngle) # 1 if full opposing motion, -1 if in same direction
+		wind_v = -1 * wind["speed"] * math.cos(heading - windAngle) # 1 if fully opposing motion, -1 if in same direction
 
 		theta = math.atan(inclin[i]/100)
 		C = mass * g * math.sin(theta)
@@ -83,4 +83,5 @@ def get_time(section_power):
 		if energy < 0:
 			time += 100000000
 			return time.real
-	return {"time": time.real, "velocities": velocities}
+	return time.real
+	#return {"time": time.real, "velocities": velocities}

@@ -7,7 +7,7 @@ def evolve(population):
     percentage_good = 0.1
     rand_select = 0.2
     mutate_chance = 0.5
-    graded = [(simulation.get_time(member)["time"], member) for member in population]
+    graded = [(simulation.get_time(member), member) for member in population]
 
     graded = [x[1] for x in sorted(graded, key=lambda x:x[0], reverse = False)]
 
@@ -29,6 +29,7 @@ def evolve(population):
 
     # Now find out how many spots we have left to fill.
     parents_length = len(parents)
+    print "Length of the population that survived is {}".format(parents_length)
     desired_length = len(population) - parents_length
     children = []
 
@@ -36,8 +37,8 @@ def evolve(population):
     while len(children) < desired_length:
 
         # Get a random mom and dad.
-        male = random.randint(0, parents_length-1)
-        female = random.randint(0, parents_length-1)
+        male = random.randint(0, parents_length)
+        female = random.randint(0, parents_length)
 
         # Assuming they aren't the same network...
         if male != female:

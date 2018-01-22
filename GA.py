@@ -9,8 +9,6 @@ min_power = 1
 def create_population(size):
 
 	pop = []
-	courseData = getCourseInfo()
-	#length = len(courseData["x"])
 	length = 7
 
 	for i in range(0, size):
