@@ -10,6 +10,7 @@ datalength = len(x)
 length = 7
 section_power = [400] * length
 
+#Testing merges on GitHub
 
 print "Constant 400W gives {} ".format(evolve.simulation.get_time(section_power))
 #
