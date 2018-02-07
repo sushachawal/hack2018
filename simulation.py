@@ -25,27 +25,32 @@ def get_time(section_power):
 	A = 0.5 * 1.225 * area * Cd
 
 	Fr = 0.004
-	B = Fr * mass * g
 
 	D = 0.5 * mass
 	time = 0
 	windAngle = 270 - wind['deg'] #Converts meteorological angle to standard angle measurement system
 	for i in range(len(x)-1):
+		v_prev = 0 if i == 0 else v_prev = velocities[i - 1]
+			
 		deltaLat = latlng[i + 1][0] - latlng[i][0]
 		deltaLng = latlng[i + 1][1] - latlng[i][1]
 		heading = math.atan2(deltaLat,deltaLng)
 		wind_v = -1 * wind["speed"] * math.cos(heading - windAngle) # 1 if fully opposing motion, -1 if in same direction
 
+		distance = math.sqrt((x[i + 1] - x[i])**2 + (y[i + 1] - y[i])**2)
+		
 		theta = math.atan(inclin[i]/100)
+		B = Fr * mass * g * math.cos(theta)
 		C = mass * g * math.sin(theta)
+		E = D / distance;
 		#P = section_power[i]
 		for j in range(0, len(section_dist)):
 			if x[i] < section_dist[j]:
 				P = section_power[j]
 				break
 
-
-		coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
+		coeff = [A + E, 2* A * wind_v, B + C + A * v_wind * v_wind - E * v_prev*v_prev, -P]
+		#coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
 		#coeff = [A,0,B+C,-P]
 		v_array = np.roots(coeff)
 
@@ -62,23 +67,21 @@ def get_time(section_power):
 			return time.real
 		if P == 0:
 			print velocities[i]
-		velocities.append(tempV)
-		distance = math.sqrt((x[i + 1] - x[i])**2 + (y[i + 1] - y[i])**2)
+		velocities.append(tempV.real)	
 
 		delta_time = distance/velocities[i]
 		time += delta_time
 
-
 		energy -= P * delta_time
 
-		if i == 0:
-			prev_velocity = 0
-		else:
-			prev_velocity = velocities[i -1]
+		# if i == 0:
+			# prev_velocity = 0
+		# else:
+			# prev_velocity = velocities[i -1]
 
-		delta_KE = D * (velocities[i]**2 - prev_velocity**2)
-		if delta_KE > 0:
-			energy -= delta_KE
+		# delta_KE = D * (velocities[i]**2 - prev_velocity**2)
+		# if delta_KE > 0:
+			# energy -= delta_KE
 
 		if energy < 0:
 			time += 100000000
