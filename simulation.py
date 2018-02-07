@@ -30,7 +30,10 @@ def get_time(section_power):
 	time = 0
 	windAngle = 270 - wind['deg'] #Converts meteorological angle to standard angle measurement system
 	for i in range(len(x)-1):
-		v_prev = 0 if i == 0 else v_prev = velocities[i - 1]
+		if i == 0:
+			v_prev = 0
+		else:
+			v_prev = velocities[i - 1]
 			
 		deltaLat = latlng[i + 1][0] - latlng[i][0]
 		deltaLng = latlng[i + 1][1] - latlng[i][1]
@@ -49,7 +52,7 @@ def get_time(section_power):
 				P = section_power[j]
 				break
 
-		coeff = [A + E, 2* A * wind_v, B + C + A * v_wind * v_wind - E * v_prev*v_prev, -P]
+		coeff = [A + E, 2* A * wind_v, B + C + A * wind_v * wind_v - E * v_prev*v_prev, -P]
 		#coeff = [A, 2 * wind_v * A, B + C + A * wind_v * wind_v, - P]
 		#coeff = [A,0,B+C,-P]
 		v_array = np.roots(coeff)
